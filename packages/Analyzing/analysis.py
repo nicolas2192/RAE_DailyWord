@@ -34,4 +34,3 @@ def update_csv(date, word, meaning, csv_path: str, update=True):
             print(f"CSV file updated, new word: {word}")
         else:
             print("Word already on file. No changes were made.")
-

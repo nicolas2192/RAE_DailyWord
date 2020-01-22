@@ -93,6 +93,3 @@ def sending_email(date, word, meaning, rp_csv):
     server.send_message(msg)  # sending email
     server.quit()  # ending connection
     print(f"Message sent to the following recipients: {recipients}")
-
-
-
