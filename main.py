@@ -3,11 +3,13 @@ import packages.Analyzing.analysis as an
 import packages.Reporting.newsletter as nl
 
 
-def main(rae_url: str = "https://dle.rae.es/", csv_file="data/words.csv", send_email: bool = True):
+def main(rae_url: str = "https://dle.rae.es/", csv_file="data/words.csv",
+         send_email: bool = True, rp_csv="data/recipients.csv"):
     """
     :param rae_url: RAE url, https://dle.rae.es/
     :param csv_file: CSV file path where previous words are saved
     :param send_email: True by default, sends the word and its meaning by email
+    :param rp_csv: recipients.csv file path
     :return:
     """
     # WebScraping
@@ -21,15 +23,14 @@ def main(rae_url: str = "https://dle.rae.es/", csv_file="data/words.csv", send_e
 
     # Reporting - Sending email
     if send_email:
-        nl.sending_email(today, word, meaning)
+        nl.sending_email(today, word, meaning, rp_csv)
 
-# todo create csv with recipients
+
 # todo # todo def create_csv(csv_path) in analysis if there is no words.csv file
-# todo # improve sending, add more than one recipient
-# todo improve meaning variable, improve html email format
+# todo improve html email format
 # todo put plain and html message apart. own function
-# todo add requirements file
 # todo write readme file
+
 
 if __name__ == "__main__":
     main()

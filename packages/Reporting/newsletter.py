@@ -2,20 +2,69 @@ from dotenv import load_dotenv
 import os
 import smtplib
 from email.message import EmailMessage
+import csv
 
 
-def sending_email(date, word, meaning):
+def make_recipients_csv(rp_path: str):
+    """
+    :param rp_path: recipient.csv path. Here will be place the file with all recipients.
+    :return: Creates the file with its header and two examples. Then it exits the script.
+    """
+    with open(rp_path, "w") as new_file:
+        data_csv = [["Recipient"], ["new_recipient1@example.com"], ["new_recipient2@example.com"]]
+        csv_writer = csv.writer(new_file)
+        for line in data_csv:
+            csv_writer.writerow(line)
+
+        print(f"New recipients.csv file was added at the following path: {rp_path}\n"
+              f"Please, add some recipients before running the main.py script again.")
+        quit()
+
+
+def recipients_list(rp_path: str):
+    """
+    :param rp_path: recipients.csv file
+    :return: a list comprising all recipients in the recipients.csv file [rep, rep2, rep3 ...]
+    """
+    # if recipients.csv file does not exist, it will be created.
+    if not os.path.exists(rp_path):
+        make_recipients_csv(rp_path)
+    else:
+        with open(rp_path, "r") as f:
+            csv_reader = csv.reader(f)
+            next(csv_reader)
+            rp_list = [line[0] for line in csv_reader]
+            f.close()
+            # Checking if generic recipients.csv file was updated with true addresses
+            if rp_list[0] == "new_recipient1@example.com":
+                print("Please, update recipients.csv file with real addresses before running the script again.\n"
+                      "Daily word was not sent.")
+                quit()
+            else:
+                return rp_list
+
+
+def sending_email(date, word, meaning, rp_csv):
+    """
+    :param date: Today's date, format: YYYY-MM-DD
+    :param word: Daily word. one string word.
+    :param meaning: Long string comprising whole meaning of the word.
+    :param rp_csv: recipients.csv file path
+    :return: Sends word and meaning to all email addresses in recipients.csv file
+    """
     load_dotenv()
     user = os.getenv("EMAIL")
     password = os.getenv("PASSWORD")
-    recipient = os.getenv("MOI")
+    # recipients = os.getenv("MOI")
+    recipients = ", ".join(recipients_list(rp_csv))
 
     plain_content = f'''\
     La palabra de hoy {date[-2:]}/{date[-5:-3]}/{date[:4]} es:\n
     {word.upper()}\n
     {meaning.capitalize()}\n
-    Para mas información, Real Academia Española: https://dle.rae.es/{word}\n
-    Esta palabra ha sido enviada con ❤️
+    Para mas información, Real Academia Española: https://dle.rae.es/{word}\n\n
+
+    Sent with ❤️ by Nico
     '''
     html_content = f'''\
     <!DOCTYPE html>
@@ -34,7 +83,8 @@ def sending_email(date, word, meaning):
     msg = EmailMessage()
     msg["Subject"] = f"Tu palabra de hoy ya está aquí! - {word}"
     msg["From"] = user
-    msg["To"] = recipient
+    msg["To"] = "vendermercadolibrenico@gmail.com"
+    msg["Bcc"] = recipients
     msg.set_content(plain_content)
     # msg.add_alternative(html_content, subtype='html')
 
@@ -42,7 +92,7 @@ def sending_email(date, word, meaning):
     server.login(user, password)  # login to the account
     server.send_message(msg)  # sending email
     server.quit()  # ending connection
-    print(f"Message sent to the following recipients: {recipient}")
+    print(f"Message sent to the following recipients: {recipients}")
 
 
 
