@@ -17,7 +17,7 @@ def update_csv(date, word, meaning, csv_path: str, update=True):
     :param meaning: Featured word's definition
     :param csv_path: Path as string. CSV file storing all previous words
     :param update: True by default, updates CSV file.
-    :return:
+    :return: updates words.csv file
     """
     if update:
         # Opens CSV file

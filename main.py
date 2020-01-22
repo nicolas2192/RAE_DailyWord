@@ -3,10 +3,12 @@ import packages.Analyzing.analysis as an
 import packages.Reporting.newsletter as nl
 
 
-def main(rae_url: str = "https://dle.rae.es/", csv_file="data/words.csv",
+def main(rae_url: str = "https://dle.rae.es/",
+         update_file: bool = True, csv_file="data/words.csv",
          send_email: bool = True, rp_csv="data/recipients.csv"):
     """
     :param rae_url: RAE url, https://dle.rae.es/
+    :param update_file: True by default, adds new word to csv file
     :param csv_file: CSV file path where previous words are saved
     :param send_email: True by default, sends the word and its meaning by email
     :param rp_csv: recipients.csv file path
@@ -19,7 +21,8 @@ def main(rae_url: str = "https://dle.rae.es/", csv_file="data/words.csv",
 
     # Analyzing - Generating CSV file
     today = an.get_date()
-    an.update_csv(today, word, meaning, csv_file, update=True)
+    if update_file:
+        an.update_csv(today, word, meaning, csv_file, update=True)
 
     # Reporting - Sending email
     if send_email:
