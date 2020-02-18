@@ -7,7 +7,7 @@ import csv
 def make_recipients_csv(rp_path: str):
     """
     :param rp_path: recipient.csv path. Here will be place the file with all recipients.
-    :return: Creates the file with its header and two examples. Then it exits the script.
+    :return: Creates the file with its header and two examples. Then it exits the main script.
     """
     with open(rp_path, "w") as new_file:
         data_csv = [["Recipient"], ["new_recipient1@example.com"], ["new_recipient2@example.com"]]
@@ -43,7 +43,7 @@ def recipients_list(rp_path: str):
                 return rp_list
 
 
-def sending_email(user, password, date, word, meaning, rp_csv, send_email):
+def sending_email(user, password, date, word, meaning, rp_csv):
     """
     :param user: email address that sends the email. must be a gmail account
     :param password: email's password
@@ -51,47 +51,45 @@ def sending_email(user, password, date, word, meaning, rp_csv, send_email):
     :param word: Daily word. one string word.
     :param meaning: Long string comprising whole meaning of the word.
     :param rp_csv: recipients.csv file path
-    :param send_email: True by default, sends email.
     :return: Sends word and meaning to all email addresses in recipients.csv file
     """
-    if send_email:
-        # recipients = os.getenv("MOI")
-        recipients = ", ".join(recipients_list(rp_csv))
 
-        plain_content = f'''\
-        La palabra de hoy {date[-2:]}/{date[-5:-3]}/{date[:4]} es:\n
-        {word.upper()}\n
-        {meaning.capitalize()}\n
-        Para mas información, Real Academia Española: https://dle.rae.es/{word}\n\n
-    
-        Sent with ❤️ by Nico
-        '''
-        html_content = f'''\
-        <!DOCTYPE html>
-        <html>
-            <body>
-                <p>La palabra de hoy {date[-2:]}/{date[-5:-3]}/{date[:4]} es 📖📖📖📜📜📜📜📜</p>
-                <h3 style="color: #2e6c80;">{word.upper()}</h3>
-                <p>{meaning.capitalize()}</p>
-                <p><br/>Para mas informaci&oacute;n:&nbsp;<a href="https://dle.rae.es/{word}" 
-                target="_blank">https://dle.rae.es/{word}</a><br /><br />Real Academia Espa&ntilde;ola</p>
-                <p>Sent with ❤️ by Nico</p>
-            </body>
-        </html>
-        '''
+    # recipients = os.getenv("MOI")
+    recipients = ", ".join(recipients_list(rp_csv))
 
-        msg = EmailMessage()
-        msg["Subject"] = f"Tu palabra de hoy ya está aquí! - {word}"
-        msg["From"] = user
-        msg["To"] = "vendermercadolibrenico@gmail.com"
-        msg["Bcc"] = recipients
-        msg.set_content(plain_content)
-        # msg.add_alternative(html_content, subtype='html')
+    plain_content = f'''\
+    La palabra de hoy {date[-2:]}/{date[-5:-3]}/{date[:4]} es:\n
+    {word.upper()}\n
+    {meaning.capitalize()}\n
+    Para mas información, Real Academia Española: https://dle.rae.es/{word}\n\n
 
-        server = smtplib.SMTP_SSL("smtp.gmail.com", 465)  # setting server and port
-        server.login(user, password)  # login to the account
-        server.send_message(msg)  # sending email
-        server.quit()  # ending connection
-        print(f"Message sent to the following recipients: {recipients}")
-    else:
-        print("send_email parameter was set as False. No emails were sent.")
+    Sent with ❤️ by Nico
+    '''
+    html_content = f'''\
+    <!DOCTYPE html>
+    <html>
+        <body>
+            <p>La palabra de hoy {date[-2:]}/{date[-5:-3]}/{date[:4]} es 📖📖📖📜📜📜📜📜</p>
+            <h3 style="color: #2e6c80;">{word.upper()}</h3>
+            <p>{meaning.capitalize()}</p>
+            <p><br/>Para mas informaci&oacute;n:&nbsp;<a href="https://dle.rae.es/{word}" 
+            target="_blank">https://dle.rae.es/{word}</a><br /><br />Real Academia Espa&ntilde;ola</p>
+            <p>Sent with ❤️ by Nico</p>
+        </body>
+    </html>
+    '''
+
+    msg = EmailMessage()
+    msg["Subject"] = f"Tu palabra de hoy ya está aquí! - {word}"
+    msg["From"] = user
+    msg["To"] = "vendermercadolibrenico@gmail.com"
+    msg["Bcc"] = recipients
+    msg.set_content(plain_content)
+    # msg.add_alternative(html_content, subtype='html')
+
+    server = smtplib.SMTP_SSL("smtp.gmail.com", 465)  # setting server and port
+    server.login(user, password)  # login to the account
+    server.send_message(msg)  # sending email
+    server.quit()  # ending connection
+    print(f"Message sent to the following recipients: {recipients}")
+

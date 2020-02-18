@@ -8,7 +8,7 @@ def terminal_parser():
 	parser.add_argument("-w", "--words_csv", type=str, metavar="",
 						default="data/words.csv", help="File where words are saved. Default: data/words.csv")
 	parser.add_argument("-s", "--send", type=str, metavar="",
-						default=False, help="If yes, sends word by email. Default: no")
+						default=True, help="If yes, sends word by email. Default: no")
 	parser.add_argument("-r", "--recps_csv", type=str, metavar="",
 						default="data/recipients.csv", help="File with email recipients. Default: data/recipients.csv")
 	return parser.parse_args()
