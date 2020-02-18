@@ -28,7 +28,7 @@ def get_word(rae_url: str):
     raw = soup.find("p", {"class": "words"})
 
     # Cleaning word, removing extra characters
-    clean_word = re.findall(r'data-eti=\"([a-z]+)\"', str(raw))[0]
+    clean_word = re.findall(r'data-eti=\"([a-záéíóúüñ]+)\"', str(raw))[0]
 
     # clean_word = raw.text.split(",")[0]
     # clean_word = re.search(r"[a-z]+", clean_word.group())
