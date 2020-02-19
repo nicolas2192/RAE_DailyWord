@@ -27,17 +27,13 @@ def main(rae_url: str = "https://dle.rae.es/",):
         print(f"update parameter 'update' was set as False. No changes were made to words.csv.")
 
     # Reporting - Sending email
-    if ap.str2bool(args.send):  # hacerlo con un try error
+    if ap.str2bool(args.send):
         load_dotenv()
-        user = os.getenv("EMAIL")
-        password = os.getenv("PASSWORD")
+        user = os.getenv("EMAIL")  # change this to your own email if there is not .env file
+        password = os.getenv("PASSWORD")  # change this to your email password if there is not .env file
         nl.sending_email(user, password, today, word, meaning, rp_csv=args.recps_csv)
     else:
         print("send email parameter 'send' was set as False. Nothing was sent.")
-
-# todo improve html email format
-# todo put plain and html message apart. own function
-# todo write readme file
 
 
 if __name__ == "__main__":

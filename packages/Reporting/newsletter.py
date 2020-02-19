@@ -65,6 +65,7 @@ def sending_email(user, password, date, word, meaning, rp_csv):
 
     Sent with ❤️ by Nico
     '''
+    # html version is not available yet
     html_content = f'''\
     <!DOCTYPE html>
     <html>
