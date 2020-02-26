@@ -12,6 +12,7 @@ Install all mandatory modules -> `pip install -r requirements.txt`
 
 ### Step 2
 Set email sender (skip this step if you are not sending the word by email)
+
 There are two options here. Using dotenv module or hardcoding your email info to the main.py script
 
 Dotenv method:
@@ -30,6 +31,7 @@ Open the main.py script with any text editor and type in your email address and 
 
 ### Step 3
 Add your recipients
+
 There is no recipients limit. You can add as many as you want. These recipients are those email addresses where the word and its meaning will be sent. To add or delete recipients create or go to the /data/recipients.csv file
 This file has only one column. Each recipient should be placed in one line. 
 
@@ -37,9 +39,10 @@ This file has only one column. Each recipient should be placed in one line.
 
 ### Step 4
 Further configuration - Argparse
+
 By default, the script will run without any additional configuration. However, there are 4 additional parameters you can play with to adjust the code to each individual's necessities. These are:
 
-![](readme/arp.png)
+![](readme/arg.png)
 
 * update: if yes, today's featured word will be saved into a csv file. This file can be found here /data/words.csv
 * words_csv: file path where words and meaning will be stored.
@@ -48,10 +51,11 @@ By default, the script will run without any additional configuration. However, t
 
 ### Step 5
 Run the script
-Once you have installed all modules and set all mandatory settings you are ready to run the code.
-Run it by typing on your terminal -> `Python main.py`
 
-If all settings were set correctly, you should recieve an email shortly after hitting enter. Likewise, a new file named words.csv should have appeared at /data/words.csv
+Once you have installed all modules and set all mandatory settings you are ready to run the code.
+Run it by typing on your terminal -> `python main.py`
+
+If all settings were set up correctly, you should recieve an email shortly after hitting enter. Likewise, a new file named words.csv should have appeared at /data/words.csv
 
 ### :file_folder: **Folder structure**
 ```
@@ -69,7 +73,7 @@ If all settings were set correctly, you should recieve an email shortly after hi
     │   ├── Analyzing
     │   │   └── analysis.py
     │   └── Reporting
-    │   │   └── newsletter.py
+    │       └── newsletter.py
     └── data
         ├── recipients.csv
         └── words.csv
@@ -77,5 +81,3 @@ If all settings were set correctly, you should recieve an email shortly after hi
 
 ### :love_letter: **Contact info**
 Any doubt? Advice? Death threat?? Don't hesitate to contact me!
-
-

@@ -6,7 +6,7 @@ import os
 from dotenv import load_dotenv
 
 
-def main(rae_url: str = "https://dle.rae.es/",):
+def main(rae_url: str = "https://dle.rae.es/"):
     """
     :param rae_url: RAE url, https://dle.rae.es/
     :return: Scrapes RAE webpage, saves new word into a csv and sends it by email.

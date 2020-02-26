@@ -63,7 +63,6 @@ def sending_email(user, password, date, word, meaning, rp_csv):
     {meaning.capitalize()}\n
     Para mas información, Real Academia Española: https://dle.rae.es/{word}\n\n
 
-    Sent with ❤️ by Nico
     '''
     # html version is not available yet
     html_content = f'''\
