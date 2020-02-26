@@ -8,7 +8,7 @@ Once upon a time...
 
 ### :wrench: **Configuration**
 ### Step 1
-Install all mandatory modules -> `Pip install requirements.txt`
+Install all mandatory modules -> `pip install -r requirements.txt`
 
 ### Step 2
 Set email sender (skip this step if you are not sending the word by email)
@@ -77,4 +77,5 @@ If all settings were set correctly, you should recieve an email shortly after hi
 
 ### :love_letter: **Contact info**
 Any doubt? Advice? Death threat?? Don't hesitate to contact me!
+
 
