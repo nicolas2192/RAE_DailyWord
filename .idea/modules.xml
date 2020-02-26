@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../Amazon_Crawler/.idea/Amazon_Crawler.iml" filepath="$PROJECT_DIR$/../Amazon_Crawler/.idea/Amazon_Crawler.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/RAE_DailyWord.iml" filepath="$PROJECT_DIR$/.idea/RAE_DailyWord.iml" />
     </modules>
   </component>

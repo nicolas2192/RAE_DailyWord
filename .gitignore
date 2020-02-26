@@ -130,3 +130,6 @@ dmypy.json
 
 # Recipient emails
 data/recipients.csv
+
+# My Stuff
+.idea/
