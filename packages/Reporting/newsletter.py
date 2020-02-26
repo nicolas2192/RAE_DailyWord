@@ -83,10 +83,10 @@ def sending_email(user, password, date, word, meaning, rp_csv):
     msg = EmailMessage()
     msg["Subject"] = f"Tu palabra de hoy ya está aquí! - {word}"
     msg["From"] = user
-    msg["To"] = "vendermercadolibrenico@gmail.com"
+    # msg["To"] = "" additional recipients can be added here
     msg["Bcc"] = recipients
     msg.set_content(plain_content)
-    # msg.add_alternative(html_content, subtype='html')
+    # msg.add_alternative(html_content, subtype='html') html version isn't available yet
 
     server = smtplib.SMTP_SSL("smtp.gmail.com", 465)  # setting server and port
     server.login(user, password)  # login to the account
