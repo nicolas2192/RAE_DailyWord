@@ -8,7 +8,16 @@ Once upon a time...
 
 ### :wrench: **Configuration**
 ### Step 1
-Install all mandatory modules -> `pip install -r requirements.txt`
+Install python and mandatory modules
+
+Firstly, we need to install python. Its highly recommended to use a new environment. If you are working with the anaconda distribution you should do something like this:
+
+`conda create -n new_env_name_here`
+`conda activate new_env_name_here`
+`conda install python=3.7`
+`pip install -r requirements.txt`
+
+*Note:* Each environment manager has its own methods. I strongly recommend check the documentation. 
 
 ### Step 2
 Set email sender (skip this step if you are not sending the word by email)
