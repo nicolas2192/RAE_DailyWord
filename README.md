@@ -12,15 +12,17 @@ Install python and mandatory modules
 
 Firstly, we need to install python. Its highly recommended to use a new environment. If you are working with the anaconda distribution you should do something like this:
 
-`conda create -n new_env_name_here`
-`conda activate new_env_name_here`
-`conda install python=3.7`
-`pip install -r requirements.txt`
+```
+conda create -n new_env_name_here
+conda activate new_env_name_here
+conda install python=3.7
+pip install -r requirements.txt
+```
 
 *Note:* Each environment manager has its own methods. I strongly recommend check the documentation. 
 
 ### Step 2
-Set email sender (skip this step if you are not sending the word by email)
+Set email sender
 
 There are two options here. Using dotenv module or hardcoding your email info to the main.py script
 
@@ -41,8 +43,8 @@ Open the main.py script with any text editor and type in your email address and 
 ### Step 3
 Add your recipients
 
-There is no recipients limit. You can add as many as you want. These recipients are those email addresses where the word and its meaning will be sent. To add or delete recipients create or go to the /data/recipients.csv file
-This file has only one column. Each recipient should be placed in one line. 
+There is no recipients limit. You can add as many as you want. These recipients are those email addresses where the word and its meaning will be sent. Add or delete recipients modifying the file /data/recipients.csv
+This csv file has only one column. Each recipient should be placed in one line. 
 
 ![](readme/recp.png)
 
@@ -61,8 +63,8 @@ By default, the script will run without any additional configuration. However, t
 ### Step 5
 Run the script
 
-Once you have installed all modules and set all mandatory settings you are ready to run the code.
-Run it by typing on your terminal -> `python main.py`
+Once you have installed all modules you are ready to run the code.
+Run it by typing `python main.py` on your terminal.
 
 If all settings were set up correctly, you should recieve an email shortly after hitting enter. Likewise, a new file named words.csv should have appeared at /data/words.csv
 
