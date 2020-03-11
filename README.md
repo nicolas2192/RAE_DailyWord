@@ -73,7 +73,7 @@ If all settings were set up correctly, you should recieve an email shortly after
 └── project
     ├── .gitignore
     ├── .env
-    ├── requeriments.txt
+    ├── requirements.txt
     ├── README.md
     ├── main.py
     ├── notebooks
@@ -91,4 +91,4 @@ If all settings were set up correctly, you should recieve an email shortly after
 ```
 
 ### :love_letter: **Contact info**
-Any doubt? Advice? Death threat?? Don't hesitate to contact me!
+Any doubt? Advice? Drop me a line! :smirk:
