@@ -1,5 +1,5 @@
 # RAE Daily Word
-Scrapes RAE webpage sending by email today's featured word and its meaning. Learn a new spanish word everyday by uploading this code to your server ;)
+Scrapes RAE webpage sending by email today's featured word and its meaning. Learn a new spanish word everyday by uploading this code to your server :wink:
 
 <p align="center">
   <img width="576" height="504" src="readme/walkthrough.png">
