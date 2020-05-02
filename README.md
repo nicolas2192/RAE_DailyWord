@@ -42,7 +42,7 @@ There is no recipients limit. You can add as many as you want. Add or delete rec
 This csv file has only one column. Each recipient should be placed in one line. 
 
 <p align="center">
-  <img width="216" height="91" src="readme/recp.png">
+  <img width="205" height="77" src="readme/recp.png">
 </p>
 
 ### Step 4
