@@ -1,77 +1,102 @@
 import requests
-import bs4 as bs
+import bs4
 import re
 
+"""
+Version 01. Original
+Version 02. Classes update
+    scraper is now a class, independent functions were deprecated.
+"""
 
-def con_check(con):
+
+class Scraper(object):
     """
-    :param con: requests status code
-    :return: if status code is greater or equal to 400 the script will be prematurely terminated
+    Daily word scraper.
     """
-    if con >= 400:
-        print("Connection error")
-        quit()
 
+    def __init__(self, url: str):
+        """
+        Init function.
 
-def get_word(rae_url: str):
-    """
-    :param rae_url: RAE url to parse
-    :return: one word string
-    """
-    r = requests.get(rae_url)
+        Parameters:
+            url: String.
 
-    # if status code is 400 or higher, exit scrip
-    con_check(r.status_code)
+        Attributes:
+            url: String. RAE main webpage: https://dle.rae.es/
+            word: String. Today's word.
+            meaning: String. Today's word meaning.
+        """
 
-    # Parsing web page looking for featured word.
-    soup = bs.BeautifulSoup(r.text, "lxml")
-    raw = soup.find("p", {"class": "words"})
+        self.url = url
+        self.word = None
+        self.word_url = None
+        self.meaning = None
 
-    # Cleaning word, removing extra characters
-    clean_word = re.findall(r'data-eti=\"([a-záéíóúüñ]+)\"', str(raw))[0]
+    def __repr__(self):
+        """
+        Visual representation.
+        """
 
-    # clean_word = raw.text.split(",")[0]
-    # clean_word = re.search(r"[a-z]+", clean_word.group())
+        return f"URL: {self.url}\nWord: {self.word}\nWord URL: {self.word_url}\nMeaning: {self.meaning}"
 
-    # if no word was found, exit code
-    if len(clean_word) < 1:
-        print("Word error")
-        quit()
+    def get_word(self) -> tuple:
+        """
+        Parse RAE main webpage and find out today's word and word url.
 
-    return clean_word
+        Returns:
+            Updates self.word attribute.
+            Updates self.word_url attribute
+            Tuple: (word: String. Today's word, word_url: String. Today's word url)
+        """
 
+        r = requests.get(self.url)
+        soup = bs4.BeautifulSoup(r.content, "lxml")
 
-def get_meaning(word: str):
-    """
-    :param word: today's featured word, it could ne any word
-    :return: string with the word's meaning
-    """
-    r2 = requests.get(f"https://dle.rae.es/{word}")
+        # Fetching word
+        word = soup.find("a", attrs={"data-cat": "WOTD"})["data-eti"]
+        self.word = word
 
-    # if status code is 400 or higher, exit scrip
-    con_check(r2.status_code)
+        # Fetching word's link
+        word_link = soup.find("a", attrs={"data-cat": "WOTD"})["href"]
+        word_url = self.url + word_link[1:]
+        self.word_url = word_url
 
-    # looks for all possible results and stores it in a list
-    soup = bs.BeautifulSoup(r2.text, "lxml")
-    raw_results = soup.find("div", {"id": "resultados"})
-    lst_results = raw_results.text.split("\n")
+        return word, word_url
 
-    # Parsing the list and returning a clean list, check word 'carpa'
-    start = False
-    result = []
-    # Inverting the list, turning it backwards
-    for i in lst_results[::-1]:
+    def get_meaning(self) -> str:
+        """
+        Parse RAE daily word page returning word's meaning.
 
-        # Parsing starts at first definition
-        if re.match(r"\d\d*\.", i):
-            start = True
+        Returns:
+            Updates self.meaning attribute
+            clean_meaning: String.
+        """
 
-        # Improving readability and avoiding unnecessary characters
-        if start and i.startswith(word):
-            result.append("\n" + i)
-        elif start and len(i) > 1:
-            result.append(i)
+        r2 = requests.get(self.word_url)
 
-    # flipping the list back to normal and joining each element making a string
-    clean_meaning = "\n".join(result[::-1])
-    return clean_meaning
+        # looks for all possible results and stores it in a list
+        soup = bs4.BeautifulSoup(r2.text, "lxml")
+        raw_results = soup.find("div", {"id": "resultados"})
+        lst_results = raw_results.text.split("\n")
+
+        # Parsing the list and returning a clean list, check word 'carpa'
+        start = False
+        result = []
+        # Inverting the list, turning it backwards
+        for i in lst_results[::-1]:
+
+            # Parsing starts at first definition
+            if re.match(r"\d\d*\.", i):
+                start = True
+
+            # Improving readability and avoiding unnecessary characters
+            if start and i.startswith(self.word):
+                result.append("\n" + i)
+            elif start and len(i) > 1:
+                result.append(i)
+
+        # flipping the list back to normal and joining each element making a string
+        clean_meaning = "\n".join(result[::-1])
+
+        self.meaning = clean_meaning
+        return clean_meaning

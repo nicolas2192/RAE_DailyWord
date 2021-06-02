@@ -34,9 +34,9 @@ def recipients_list(rp_path: str):
             next(csv_reader)
             rp_list = [line[0] for line in csv_reader]
             f.close()
-            # Checking if generic recipients.csv file was updated with true addresses
+            # Checking if generic recipients.csv file was updated with real email addresses
             if rp_list[0] == "new_recipient1@example.com":
-                print("Please, update recipients.csv file with real addresses before running the script again.\n"
+                print("Please, update recipients.csv file with real email addresses before running the script again.\n"
                       "Daily word was not sent.")
                 quit()
             else:

@@ -15,14 +15,13 @@ def main(rae_url: str = "https://dle.rae.es/"):
     args = ap.terminal_parser()
 
     # Acquisition
-    word = aq.get_word(rae_url)
-    meaning = aq.get_meaning(word)
-    print(meaning)
+    word = aq.Scraper(rae_url)
+    print(word.meaning)
 
     # Analyzing - Generating CSV file
     today = an.get_date()
     if ap.str2bool(args.update):
-        an.update_csv(today, word, meaning, csv_path=args.words_csv)
+        an.update_csv(today, word.word, word.meaning, csv_path=args.words_csv)
     else:
         print(f"update parameter 'update' was set as False. No changes were made to words.csv.")
 
@@ -31,7 +30,7 @@ def main(rae_url: str = "https://dle.rae.es/"):
         load_dotenv()
         user = os.getenv("EMAIL")  # change this to your own email if there is not .env file
         password = os.getenv("PASSWORD")  # change this to your email password if there is not .env file
-        nl.sending_email(user, password, today, word, meaning, rp_csv=args.recps_csv)
+        nl.sending_email(user, password, today, word.word, word.meaning, rp_csv=args.recps_csv)
     else:
         print("send email parameter 'send' was set as False. Nothing was sent.")
 
